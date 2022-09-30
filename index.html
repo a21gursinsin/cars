@@ -19,29 +19,34 @@
     </header>
     <div id="carlist"></div>
     <div id="navbar"></div>
+    <div id="demo"></div>
 
 
     </main>
     <script>
-        const cars = [{ nom: "Jeep Wrangler Rubicon", count: 0 }, { nom: "Ford Ranger", count: 0 }, { nom: "Mercedes-AMG G 63", count: 0 }, { nom: "BMW X6", count: 0 }, { nom: "Audi A7", count: 0}];
+        const cars = [{ nom: "Jeep Wrangler Rubicon", count: 0, link: "https://cdn.motor1.com/images/mgl/LZbwQ/s1/2021-jeep-wrangler-rubicon-392-front-view.webp" },
+        { nom: "Ford Ranger", count: 0, link: "https://www.wallpaperflash.id/wallpaper/wallpaper/20220423/ford-raptor-desktop-wallpaper-ford-ranger-raptor-modified-wallpaper-preview.webp" },
+        { nom: "Mercedes-AMG G 63", count: 0, link: "https://images2.alphacoders.com/105/thumb-1920-1058423.jpg" },
+        { nom: "BMW X6", count: 0, link: "https://cdn-images.motor.es/image/m/800w/fotos-noticias/2019/10/bmw-x6-m-2020-201961291-1570009121_1.jpg" },
+        { nom: "Audi A7", count: 0, link: "https://wallpaperaccess.com/full/3659174.jpg" }];
         htmlstr = `<ul class="check-list">`;
         for (let index = 0; index < cars.length; index++) {
-            htmlstr += `<li>${cars[index].nom}</li>`
+            htmlstr += `<li onclick="mostrarImage(${index})">${cars[index].nom}</li>`
         }
         htmlstr += `</ul>`;
         document.getElementById("carlist").innerHTML = htmlstr;
 
-        let txt = "You clicked me: ";
-        let count = 0;
-        document.getElementById("demo").innerHTML = txt + count;
+        function mostrarImage(i) {
+            document.getElementById("navbar").innerHTML = `<img src="${cars[i].link}" alt="${cars[i].nom}">`;
 
-        const element = document.getElementById("myBtn").addEventListener("click", myFunction);
-        const element1 = document.getElementById("myBtn2").addEventListener("click", myFunction);
-        function myFunction() {
-            count++;
-
-            document.getElementById("demo").innerHTML = txt + count;
         }
+        const element = document.getElementById("navbar").addEventListener("click", myFunction);
+        function myFunction() {
+            cars[i].count += 1;
+            console.log(cars[i].count)
+        }
+
+
     </script>
 </body>
 
