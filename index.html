@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Best Cars</title>
+</head>
+
+<body>
+    <header class="masthead clear">
+        <div class="centered">
+            <div class="site-branding">
+                <h1 class="site-title">Best Cars Vote</h1>
+            </div>
+        </div>
+    </header>
+    <div id="carlist"></div>
+    <div id="navbar"></div>
+
+
+    </main>
+    <script>
+        const cars = [{ nom: "Jeep Wrangler Rubicon", count: 0 }, { nom: "Ford Ranger", count: 0 }, { nom: "Mercedes-AMG G 63", count: 0 }, { nom: "BMW X6", count: 0 }, { nom: "Audi A7", count: 0}];
+        htmlstr = `<ul class="check-list">`;
+        for (let index = 0; index < cars.length; index++) {
+            htmlstr += `<li>${cars[index].nom}</li>`
+        }
+        htmlstr += `</ul>`;
+        document.getElementById("carlist").innerHTML = htmlstr;
+
+        let txt = "You clicked me: ";
+        let count = 0;
+        document.getElementById("demo").innerHTML = txt + count;
+
+        const element = document.getElementById("myBtn").addEventListener("click", myFunction);
+        const element1 = document.getElementById("myBtn2").addEventListener("click", myFunction);
+        function myFunction() {
+            count++;
+
+            document.getElementById("demo").innerHTML = txt + count;
+        }
+    </script>
+</body>
+
+</html>

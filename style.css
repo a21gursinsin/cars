@@ -1,0 +1,94 @@
+.check-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.check-list li {
+  position: relative;
+  list-style-type: none;
+  padding-left: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.check-list li:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 5px;
+  height: 11px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: #00a8a8;
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+}
+
+
+/* Boilerplate stuff */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: #efefef;
+  color: #324047
+}
+
+html,
+body,
+section {
+  height: 100%;
+}
+
+section {
+  max-width: 400px;
+  margin-left: 5px;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+div {
+  margin: auto;
+}
+
+.site-branding{
+  margin-top: 15%;
+  margin-left: 1%;
+}
+ul{
+  margin-left: 15%;
+}
+#navbar {
+  position: fixed;
+  padding-left: 2;
+  top: 15%;
+  left: 60rem;
+  right: 4%;
+  height: 63rem;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255, 0.7);
+
+  text-align: left;
+  -webkit-border-radius: 6px 6px 6px 6px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
