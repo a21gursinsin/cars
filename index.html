@@ -24,27 +24,138 @@
 
     </main>
     <script>
-        const cars = [{ nom: "Jeep Wrangler Rubicon", count: 0, link: "https://cdn.motor1.com/images/mgl/LZbwQ/s1/2021-jeep-wrangler-rubicon-392-front-view.webp" },
+        const model={ cars : [{ nom: "Jeep Wrangler Rubicon", count: 0, link: "https://cdn.motor1.com/images/mgl/LZbwQ/s1/2021-jeep-wrangler-rubicon-392-front-view.webp" },
         { nom: "Ford Ranger", count: 0, link: "https://www.wallpaperflash.id/wallpaper/wallpaper/20220423/ford-raptor-desktop-wallpaper-ford-ranger-raptor-modified-wallpaper-preview.webp" },
         { nom: "Mercedes-AMG G 63", count: 0, link: "https://images2.alphacoders.com/105/thumb-1920-1058423.jpg" },
         { nom: "BMW X6", count: 0, link: "https://cdn-images.motor.es/image/m/800w/fotos-noticias/2019/10/bmw-x6-m-2020-201961291-1570009121_1.jpg" },
-        { nom: "Audi A7", count: 0, link: "https://wallpaperaccess.com/full/3659174.jpg" }];
-        htmlstr = `<ul class="check-list">`;
-        for (let index = 0; index < cars.length; index++) {
-            htmlstr += `<li onclick="mostrarImage(${index})">${cars[index].nom}</li>`
-        }
-        htmlstr += `</ul>`;
-        document.getElementById("carlist").innerHTML = htmlstr;
+        { nom: "Audi A7", count: 0, link: "https://wallpaperaccess.com/full/3659174.jpg" }]};
 
-        function mostrarImage(i) {
-            document.getElementById("navbar").innerHTML = `<img src="${cars[i].link}" alt="${cars[i].nom}">`;
+        const carListView = {
+            init() {
+                // store the DOM element for easy access later
+                this.carListElem = document.getElementById('carlist');
 
-        }
-        const element = document.getElementById("navbar").addEventListener("click", myFunction);
-        function myFunction() {
-            cars[i].count += 1;
-            console.log(cars[i].count)
-        }
+                // render this view (update the DOM elements with the right values)
+                this.render();
+            },
+
+            render() {
+                let car;
+                let elem;
+                let i;
+                // get the cars to be render from the controller
+                const cars = controller.getCars();
+
+                // to make sure the list is empty before rendering
+                this.carListElem.innerHTML = '';
+
+                // loop over the cars array
+                for (let i = 0; i < cars.length; i++) {
+                    // this is the car we've currently looping over
+                    car = cars[i];
+                    // make a new car list item and set its text
+                    elem = document.createElement('li');
+                    elem.className = 'list-group-item d-flex justify-content-between lh-condensed';
+                    elem.style.cursor = 'pointer';
+                    elem.textContent = car.name;
+                    elem.addEventListener(
+                        'click',
+                        (function (carCopy) {
+                            return function () {
+                                controller.setCurrentCar(carCopy);
+                                carView.render();
+                            };
+                        })(car)
+                    );
+                    // finally, add the element to the list
+                    this.carListElem.appendChild(elem);
+                }
+                for (let i = 0; i < cars.length; i++) {
+                    console.log(car[i]);}
+            },
+        };
+        const carView = {
+            init() {
+                // store pointers to the DOM elements for easy access later
+                this.carElem = document.getElementById('car');
+                this.carNameElem = document.getElementById('carlist');
+                this.carImageElem = document.getElementById('navbar');
+                this.countElem = document.getElementById('car-count');
+                this.elCount = document.getElementById('elCount');
+
+
+                // on click, increment the current car's counter
+                this.carImageElem.addEventListener('click', this.handleClick);
+
+                // render this view (update the DOM elements with the right values)
+                this.render();
+            },
+
+            handleClick() {
+                return controller.incrementCounter();
+            },
+
+            render() {
+                // update the DOM elements with values from the current car
+                const currentCar = controller.getCurrentCar();
+                this.countElem.textContent = currentCar.clickCount;
+                this.carNameElem.textContent = currentCar.name;
+                this.carImageElem.src = currentCar.imgSrc;
+                this.carImageElem.style.cursor = 'pointer';
+            },
+        };
+
+        const controller = {
+            init() {
+                // set the current car to the first one in the list
+                model.currentCar = model.cars[0];
+
+                // tell the views to initialize
+                carListView.init();
+                carView.init();
+            },
+
+            getCurrentCar() {
+                return model.currentCar;
+            },
+
+            getCars() {
+                return model.cars;
+            },
+
+            // set the currently selected car to the object that's passed in
+            setCurrentCar(car) {
+                model.currentCar = car;
+            },
+
+            // increment the counter for the currently-selected car
+            incrementCounter() {
+                model.currentCar.clickCount++;
+                carView.render();
+            },
+        };
+
+        // Let's goooo!
+        controller.init();
+
+
+
+        // htmlstr = `<ul class="check-list">`;
+        // for (let index = 0; index < cars.length; index++) {
+        //     htmlstr += `<li onclick="mostrarImage(${index})">${cars[index].nom}</li>`
+        // }
+        // htmlstr += `</ul>`;
+        // document.getElementById("carlist").innerHTML = htmlstr;
+
+        // function mostrarImage(i) {
+        //     document.getElementById("navbar").innerHTML = `<img src="${cars[i].link}" alt="${cars[i].nom}">`;
+
+        // }
+        // const element = document.getElementById("navbar").addEventListener("click", myFunction);
+        // function myFunction() {
+        //     cars[i].count += 1;
+        //     console.log(cars[i].count)
+        // }
 
 
     </script>
