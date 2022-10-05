@@ -1,7 +1,7 @@
 
 var model = {
-    currentCat: null,
-    cats: [
+    currentcar: null,
+    cars: [
         {
             clickCount : 0,
             name : 'Jeep Wrangler Rubicon',
@@ -35,54 +35,54 @@ var model = {
     ]
 };
 
-/* ======= Octopus ======= */
+/* ======= carChecker ======= */
 
-var octopus = {
+var carChecker = {
 
     init: function() {
-        // set our current cat to the first one in the list
-        model.currentCat = model.cats[0];
+        // set our current car to the first one in the list
+        model.currentcar;
 
         // tell our views to initialize
-        catListView.init();
-        catView.init();
+        carListView.init();
+        carView.init();
     },
 
-    getCurrentCat: function() {
-        return model.currentCat;
+    getCurrentcar: function() {
+        return model.currentcar;
     },
 
-    getCats: function() {
-        return model.cats;
+    getcars: function() {
+        return model.cars;
     },
 
-    // set the currently-selected cat to the object passed in
-    setCurrentCat: function(cat) {
-        model.currentCat = cat;
+    // set the currently-selected car to the object passed in
+    setCurrentcar: function(car) {
+        model.currentcar = car;
     },
 
-    // increments the counter for the currently-selected cat
+    // increments the counter for the currently-selected car
     incrementCounter: function() {
-        model.currentCat.clickCount++;
-        catView.render();
+        model.currentcar.clickCount++;
+        carView.render();
     }
 };
 
 
 /* ======= View ======= */
 
-var catView = {
+var carView = {
 
     init: function() {
         // store pointers to our DOM elements for easy access later
-        this.catElem = document.getElementById('cat');
-        this.catNameElem = document.getElementById('car-name');
-        this.catImageElem = document.getElementById('car-img');
+        this.carElem = document.getElementById('car');
+        this.carNameElem = document.getElementById('car-name');
+        this.carImageElem = document.getElementById('car-img');
         this.countElem = document.getElementById('car-count');
 
-        // on click, increment the current cat's counter
-        this.catImageElem.addEventListener('click', function(){
-            octopus.incrementCounter();
+        // on click, increment the current car's counter
+        this.carImageElem.addEventListener('click', function(){
+            carChecker.incrementCounter();
         });
 
         // render this view (update the DOM elements with the right values)
@@ -90,56 +90,56 @@ var catView = {
     },
 
     render: function() {
-        // update the DOM elements with values from the current cat
-        var currentCat = octopus.getCurrentCat();
-        this.countElem.textContent = currentCat.clickCount;
-        this.catNameElem.textContent = currentCat.name;
-        this.catImageElem.src = currentCat.imgSrc;
+        // update the DOM elements with values from the current car
+        var currentcar = carChecker.getCurrentcar();
+        this.countElem.textContent = currentcar.clickCount;
+        this.carNameElem.textContent = currentcar.name;
+        this.carImageElem.src = currentcar.imgSrc;
     }
 };
 
-var catListView = {
+var carListView = {
 
     init: function() {
         // store the DOM element for easy access later
-        this.catListElem = document.getElementById('car-list');
+        this.carListElem = document.getElementById('car-list');
 
         // render this view (update the DOM elements with the right values)
         this.render();
     },
 
     render: function() {
-        var cat, elem, i;
-        // get the cats we'll be rendering from the octopus
-        var cats = octopus.getCats();
+        var car, elem, i;
+        // get the cars we'll be rendering from the carChecker
+        var cars = carChecker.getcars();
 
-        // empty the cat list
-        this.catListElem.innerHTML = '';
+        // empty the car list
+        this.carListElem.innerHTML = '';
 
-        // loop over the cats
-        for (i = 0; i < cats.length; i++) {
-            // this is the cat we're currently looping over
-            cat = cats[i];
+        // loop over the cars
+        for (i = 0; i < cars.length; i++) {
+            // this is the car we're currently looping over
+            car = cars[i];
 
-            // make a new cat list item and set its text
+            // make a new car list item and set its text
             elem = document.createElement('li');
-            elem.textContent = cat.name;
+            elem.textContent = car.name;
 
-            // on click, setCurrentCat and render the catView
+            // on click, setCurrentcar and render the carView
             // (this uses our closure-in-a-loop trick to connect the value
-            //  of the cat variable to the click event function)
-            elem.addEventListener('click', (function(catCopy) {
+            //  of the car variable to the click event function)
+            elem.addEventListener('click', (function(carCopy) {
                 return function() {
-                    octopus.setCurrentCat(catCopy);
-                    catView.render();
+                    carChecker.setCurrentcar(carCopy);
+                    carView.render();
                 };
-            })(cat));
+            })(car));
 
             // finally, add the element to the list
-            this.catListElem.appendChild(elem);
+            this.carListElem.appendChild(elem);
         }
     }
 };
 
 // make it go!
-octopus.init();
+carChecker.init();
